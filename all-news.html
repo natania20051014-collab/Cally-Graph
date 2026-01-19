@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>キャリぐら - Cally-Graph | 鹿児島キャリアデザイン専門学校</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="page-header">
+        <div class="header-inner">
+            <h1 class="logo"><a href="index.html" style="text-decoration: none; color: inherit;">
+                <span class="logo-dot">●</span>キャリぐら<span class="logo-sub">Cally-Graph</span></a></h1>
+    
+            <div class="menu-btn" id="menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+    
+            <nav class="global-nav" id="global-nav">
+                <ul>
+                    <li class="has-child">
+                        <a href="index.html#courses"><span>作品紹介</span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="all-works.html">全ての作品を見る</a></li>
+                            <li><a href="2d-course.html">2Dコース</a></li>
+                            <li><a href="anime-course.html">アニメコース</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="group-work.html"><span>グループワーク作品</span></a></li>
+                    <li><a href="taniyama.html"><span>谷山プロジェクト</span></a></li>
+                    <li><a href="all-news.html"><span>お知らせ</span></a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    
+    <main class="container page-main-content">
+        <div class="heading-news">
+            <h2 class="heading_ja">お知らせ一覧</h2>
+            <h3 class="heading_en">News & Topics Archive</h3>
+        </div>
+
+        <ul class="news-list">
+            <li class="news_item">
+                <a href="news-detail_01.html">
+                    <p class="category"><span class="cat-info">INFO</span></p>
+                    <p class="time">2026/1/20</p>
+                    <p class="title">グラフィック科 卒業制作展「スキをカタチに！」開催のお知らせ。</p>
+                </a>
+            </li>
+        </ul>
+
+        <div class="pagination">
+            <span class="current">1</span>
+            <a href="all-news_02.html">2</a>
+            <a href="all-news_02.html">&gt;&gt;</a>
+        </div>
+        
+        <div class="back-to-top">
+            <a href="index.html" class="btn-back">TOPページへ戻る</a>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container footer-inner">
+            <div class="footer-info">
+                <h2 class="logo">
+                    <span class="logo-dot">●</span>キャリぐら<span class="logo-sub">Cally-Graph</span>
+                </h2>
+                <p class="school-name">鹿児島キャリアデザイン専門学校<br>グラフィックデザイン科</p>
+            </div>
+    
+            <div class="footer-links">
+                <div class="footer-nav-group">
+                    <p class="footer-head">作品紹介</p>
+                    <ul>
+                        <li><a href="all-works.html">全ての作品</a></li>
+                        <li><a href="2d-course.html">2Dコース</a></li>
+                        <li><a href="anime-course.html">アニメコース</a></li>
+                    </ul>
+                </div>
+                <div class="footer-nav-group">
+                    <p class="footer-head">プロジェクト</p>
+                    <ul>
+                        <li><a href="group-work.html">グループワーク</a></li>
+                        <li><a href="taniyama.html">谷山プロジェクト</a></li>
+                    </ul>
+                </div>
+            </div>
+    
+            <div class="footer-news">
+                <p class="footer-head">その他</p>
+                <ul>
+                    <li><a href="all-news.html">お知らせ</a></li>
+                    <li><a href="index.html">トップページ</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p class="copy">&copy; 2026 キャリぐら - Kagoshima Career Design Graphic</p>
+        </div>
+    </footer>
+    
+    <script>
+        const btn = document.getElementById('menu-btn');
+        const nav = document.getElementById('global-nav');
+    
+        btn.addEventListener('click', () => {
+            btn.classList.toggle('open');
+            nav.classList.toggle('open');
+        });
+    
+        // メニューリンクをクリックしたら閉じる（ページ内リンク対策）
+        const navLinks = document.querySelectorAll('.global-nav a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                btn.classList.remove('open');
+                nav.classList.remove('open');
+            });
+        });
+
+        
+    </script>
+
+</body>
+</html>

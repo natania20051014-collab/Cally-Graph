@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>キャリぐら - Cally-Graph | 鹿児島キャリアデザイン専門学校</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="page-header">
+        <div class="header-inner">
+            <h1 class="logo"><a href="index.html" style="text-decoration: none; color: inherit;">
+                <span class="logo-dot">●</span>キャリぐら<span class="logo-sub">Cally-Graph</span></a></h1>
+    
+            <div class="menu-btn" id="menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+    
+            <nav class="global-nav" id="global-nav">
+                <ul>
+                    <li class="has-child">
+                        <a href="index.html#courses"><span>作品紹介</span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="all-works.html">全ての作品を見る</a></li>
+                            <li><a href="2d-course.html">2Dコース</a></li>
+                            <li><a href="anime-course.html">アニメコース</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="group-work.html"><span>グループワーク作品</span></a></li>
+                    <li><a href="taniyama.html"><span>谷山プロジェクト</span></a></li>
+                    <li><a href="all-news.html"><span>お知らせ</span></a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+
+    <section class="archive-header container">
+        <h1 class="page-title">グループワーク作品</h1>
+        <p class="page-sub">過去のグループワーク作品一覧</p>
+    </section>
+
+    <main class="container">
+
+        <p>ここでは学生が今までに作り上げたグループワークの作品を見ることができます。</p>
+
+        <section class="year-section">
+            <h4 class="content-text">2020年</h4>
+            <ul class="news-list">
+                <li class="news_item item-red">
+                    <a href="work-detail-2023.html">
+                        <p class="title">学園祭メインビジュアル制作：チームによる全体ブランディング</p>
+                    </a>
+                </li>
+                <li class="news_item item-red">
+                    <a href="work-detail-2023-exhibition.html">
+                        <p class="title">進級制作展 会場サイン・誘導計画の実装</p>
+                    </a>
+                </li>
+            </ul>
+        </section>
+    
+        <section class="year-section">
+            <h4 class="content-text">2019年</h4>
+            <ul class="news-list">
+                <li class="news_item item-red">
+                    <a href="work-detail-2022.html">
+                        <p class="title">共同編集ZINE「GRAPHIC-LOG」制作プロジェクト</p>
+                    </a>
+                </li>
+            </ul>
+        </section>
+    </main>
+
+
+    <footer class="main-footer">
+        <div class="container footer-inner">
+            <div class="footer-info">
+                <h2 class="logo">
+                    <span class="logo-dot">●</span>キャリぐら<span class="logo-sub">Cally-Graph</span>
+                </h2>
+                <p class="school-name">鹿児島キャリアデザイン専門学校<br>グラフィックデザイン科</p>
+            </div>
+    
+            <div class="footer-links">
+                <div class="footer-nav-group">
+                    <p class="footer-head">作品紹介</p>
+                    <ul>
+                        <li><a href="all-works.html">全ての作品</a></li>
+                        <li><a href="2d-course.html">2Dコース</a></li>
+                        <li><a href="anime-course.html">アニメコース</a></li>
+                    </ul>
+                </div>
+                <div class="footer-nav-group">
+                    <p class="footer-head">プロジェクト</p>
+                    <ul>
+                        <li><a href="group-work.html">グループワーク</a></li>
+                        <li><a href="taniyama.html">谷山プロジェクト</a></li>
+                    </ul>
+                </div>
+            </div>
+    
+            <div class="footer-news">
+                <p class="footer-head">その他</p>
+                <ul>
+                    <li><a href="all-news.html">お知らせ</a></li>
+                    <li><a href="index.html">トップページ</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p class="copy">&copy; 2026 キャリぐら - Kagoshima Career Design Graphic</p>
+        </div>
+    </footer>
+    
+    <script>
+        const btn = document.getElementById('menu-btn');
+        const nav = document.getElementById('global-nav');
+    
+        btn.addEventListener('click', () => {
+            btn.classList.toggle('open');
+            nav.classList.toggle('open');
+        });
+    
+        // メニューリンクをクリックしたら閉じる（ページ内リンク対策）
+        const navLinks = document.querySelectorAll('.global-nav a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                btn.classList.remove('open');
+                nav.classList.remove('open');
+            });
+        });
+
+        
+    </script>
+
+</body>
+</html>

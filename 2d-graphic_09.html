@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>キャリぐら - Cally-Graph | 鹿児島キャリアデザイン専門学校</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="page-header">
+        <div class="header-inner">
+            <h1 class="logo"><a href="index.html" style="text-decoration: none; color: inherit;">
+                <span class="logo-dot">●</span>キャリぐら<span class="logo-sub">Cally-Graph</span></a></h1>
+    
+            <div class="menu-btn" id="menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+    
+            <nav class="global-nav" id="global-nav">
+                <ul>
+                    <li class="has-child">
+                        <a href="index.html#courses"><span>作品紹介</span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="all-works.html">全ての作品を見る</a></li>
+                            <li><a href="2d-course.html">2Dコース</a></li>
+                            <li><a href="anime-course.html">アニメコース</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="group-work.html"><span>グループワーク作品</span></a></li>
+                    <li><a href="taniyama.html"><span>谷山プロジェクト</span></a></li>
+                    <li><a href="all-news.html"><span>お知らせ</span></a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container detail-main">
+        <div class="detail-grid">
+            <div class="detail-visual">
+                <img src="images/2d-graphic_09.png" alt="作品名">
+            </div>
+
+            <div class="detail-info">
+                <h2 class="detail-title">CIRCUSのフライヤー</h2>
+                
+                <table class="detail-table">
+                    <tr>
+                        <th>名前</th>
+                        <td>吉井 桃香</td>
+                    </tr>
+                    <tr>
+                        <th>分類</th>
+                        <td>フライヤー</td>
+                    </tr>
+                    <tr>
+                        <th>授業名</th>
+                        <td>卒業制作</td>
+                    </tr>
+                    <tr>
+                        <th>制作時間</th>
+                        <td>6時間</td>
+                    </tr>
+                    <tr>
+                        <th>使用ソフト</th>
+                        <td>Illustrator</td>
+                    </tr>
+                </table>
+
+                <div class="detail-description">
+                    <p class="description-label">作品解説</p>
+                    <p>ここに作品のコンセプトや、こだわったポイントなどを書く！</p>
+                </div>
+
+                <a href="#" class="btn-back" onclick="history.back(); return false;">一覧へ戻る</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container footer-inner">
+            <div class="footer-info">
+                <h2 class="logo">
+                    <span class="logo-dot">●</span>キャリぐら<span class="logo-sub">Cally-Graph</span>
+                </h2>
+                <p class="school-name">鹿児島キャリアデザイン専門学校<br>グラフィックデザイン科</p>
+            </div>
+    
+            <div class="footer-links">
+                <div class="footer-nav-group">
+                    <p class="footer-head">作品紹介</p>
+                    <ul>
+                        <li><a href="all-works.html">全ての作品</a></li>
+                        <li><a href="2d-course.html">2Dコース</a></li>
+                        <li><a href="anime-course.html">アニメコース</a></li>
+                    </ul>
+                </div>
+                <div class="footer-nav-group">
+                    <p class="footer-head">プロジェクト</p>
+                    <ul>
+                        <li><a href="group-work.html">グループワーク</a></li>
+                        <li><a href="taniyama.html">谷山プロジェクト</a></li>
+                    </ul>
+                </div>
+            </div>
+    
+            <div class="footer-news">
+                <p class="footer-head">その他</p>
+                <ul>
+                    <li><a href="all-news.html">お知らせ</a></li>
+                    <li><a href="index.html">トップページ</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p class="copy">&copy; 2026 キャリぐら - Kagoshima Career Design Graphic</p>
+        </div>
+    </footer>
+    
+    <script>
+        const btn = document.getElementById('menu-btn');
+        const nav = document.getElementById('global-nav');
+    
+        btn.addEventListener('click', () => {
+            btn.classList.toggle('open');
+            nav.classList.toggle('open');
+        });
+    
+        // メニューリンクをクリックしたら閉じる（ページ内リンク対策）
+        const navLinks = document.querySelectorAll('.global-nav a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                btn.classList.remove('open');
+                nav.classList.remove('open');
+            });
+        });
+
+        
+    </script>
+
+</body>
+</html>

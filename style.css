@@ -1,0 +1,1289 @@
+/* ==========================================================================
+   Base Styles
+   ========================================================================== */
+   * {
+    box-sizing: border-box;
+}
+
+
+
+/* ==========================================================================
+   キャリぐら専用：レスポンシブ＆ハンバーガーメニュー
+   ========================================================================== */
+
+/* ハンバーガーボタンの基本（PCでは隠す） */
+.menu-btn {
+    display: none;
+    cursor: pointer;
+    width: 30px;
+    height: 22px;
+    position: relative;
+    z-index: 10001;
+}
+
+.menu-btn span {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background: #444;
+    border-radius: 10px;
+    position: absolute;
+    transition: all 0.3s;
+}
+
+.menu-btn span:nth-child(1) { top: 0; }
+.menu-btn span:nth-child(2) { top: 9px; }
+.menu-btn span:nth-child(3) { top: 18px; }
+
+/* 画面幅 960px 以下の時の設定 */
+@media (max-width: 960px) {
+    .menu-btn { display: block; }
+
+    /* ナビゲーションを右からスライドさせる */
+    .global-nav {
+        position: fixed;
+        top: 0;
+        right: -100%; 
+        width: 50%;
+        height: 100vh;
+        background: rgba(255, 255, 255, 0.98);
+        padding: 100px 30px;
+        transition: 0.5s ease;
+        z-index: 10000;
+        box-shadow: -10px 0 30px rgba(0,0,0,0.05);
+        overflow-y: auto;
+    }
+
+    .global-nav.open { right: 0; }
+
+    .global-nav ul {
+        flex-direction: column;
+        gap: 20px;
+        align-items: flex-start;
+    }
+
+    .global-nav a {
+        font-size: 1.1rem;
+        font-weight: 700;
+    }
+
+    /* スマホではドロップダウンを最初から表示、またはシンプルに */
+    @media (max-width: 960px) {
+        /* --- スマホではドロップダウンを最初から表示 --- */
+        .dropdown-menu {
+            display: block !important; /* 強制表示 */
+            position: static !important; /* 空中に浮かせない */
+            opacity: 1 !important;
+            visibility: visible !important;
+            width: 100% !important;
+            box-shadow: none !important;
+            padding: 10px 0 10px 20px !important; /* 少し右にずらして「子メニュー」感を出す */
+            background: transparent !important; /* 背景を透明にして親メニューに馴染ませる */
+            transform: none !important;
+        }
+    
+        .dropdown-menu li {
+            border: none !important;
+        }
+    
+        .dropdown-menu a {
+            font-size: 0.9rem !important;
+            color: #666 !important; /* 親メニューより少し薄くして親子関係を強調 */
+            padding: 8px 0 !important;
+        }
+    
+        /* 作品紹介（親メニュー）の矢印やホバー表現をスマホ用に調整 */
+        .has-child > a {
+            font-weight: 900;
+            color: #333;
+            pointer-events: none; /* 親メニュー自体をクリックさせない（開閉エラー防止） */
+        }
+        
+        .has-child > a span::after {
+            content: " ▼"; /* スマホでは下向き三角をつけて「この下にあります感」を出す */
+            font-size: 0.7rem;
+        }
+    }
+
+    .dropdown-menu {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        width: 100%;
+        box-shadow: none;
+        border-top: none;
+        padding-left: 15px;
+        transform: none !important;
+        display: block !important;
+    }
+
+    .dropdown-menu a {
+        text-align: left;
+        padding: 10px 0;
+        font-size: 0.9rem;
+    }
+
+    /* ボタンがバツ印になるアニメーション */
+    .menu-btn.open span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+    .menu-btn.open span:nth-child(2) { opacity: 0; }
+    .menu-btn.open span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+
+    /* ロゴのサイズをスマホに最適化 */
+    .logo { font-size: 1.3rem !important; }
+}
+
+/* 画面幅 768px（スマホ）以下の全要素調整 */
+@media (max-width: 768px) {
+    .container { padding: 0 20px; }
+    .logo { font-size: 1.3rem !important; }
+    /* ヒーローエリアの文字が5行にならないように調整 */
+    .hero-title {
+        font-size: 1.8rem !important;
+        line-height: 1.3;
+    }
+
+    /* カテゴリのグリッドを1列に */
+    .course-grid { grid-template-columns: 1fr; }
+    .course-card { height: 250px; }
+
+    /* お知らせリストの横並びを縦に */
+    .news_item a {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    /* 谷山プロジェクトなどの巨大見出しを小さく */
+    .page-title { font-size: 1.8rem !important; }
+    .content-text { font-size: 1.1rem !important; padding: 8px 15px; }
+}
+
+/* レンガ状の画像グリッドをスマホでも崩さない設定 */
+@media (max-width: 768px) {
+    .c-grid-category, .c-grid__category {
+        grid-template-columns: repeat(4, 1fr); /* 10列から4列に変更 */
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+/* ==========================================================================
+   テキスト(下線)
+   ========================================================================== */
+   .content-text {
+    font-size: 24px;
+    font-weight: bold;
+    display: inline-block;
+    position: relative;
+    padding: 10px 20px;
+    margin: 60px 0 30px 0;
+    color: #555;
+    /* 背景をほんのり色づけして角を丸める */
+    background: #fdfdfd; 
+    border-radius: 10px;
+}
+
+/* 下線の代わりに、左側に可愛いアクセント（丸）をつける */
+.content-text::before {
+    content: "";
+    position: absolute;
+    left: -15px;
+    top: 50%;
+    transform: translateY(-5px);
+    width: 10px;
+    height: 10px;
+    background-color: #eda712; /* オレンジ */
+    border-radius: 50%;
+    box-shadow: 20px -20px 0 #656af7; /* 青いドットをもう一つ飛ばす */
+}
+
+/* 下線の装飾を少しリッチにする */
+.content-text::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 4px;
+    background: repeating-linear-gradient(45deg, #eee, #eee 5px, #fff 5px, #fff 10px);
+    border-radius: 2px;
+}
+
+/* 親要素に左右の余白がついている場合はリセット */
+.work-area, .category-area {
+    padding-left: 0;
+    margin-left: 0;
+}
+
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Noto Sans JP', sans-serif;
+    color: #333;
+    line-height: 1.6;
+    padding-top: 80px; /* ヘッダーの高さ分 */
+    background-color: #fcfcfc; /* 真っ白より少し柔らかい白 */
+    /* 薄いパステルカラーのドットを配置 */
+    background-image: radial-gradient(#efefef 1.5px, transparent 1.5px);
+    background-size: 30px 30px;
+    background-attachment: fixed;
+}
+
+/* セクション間の余白を統一 */
+section {
+    margin-bottom: 80px !important;
+    position: relative;
+    z-index: 1;
+}
+/* 共通のコンテナ設定 */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 50px;
+}
+
+/* 見出しのデザイン */
+.heading-news, .heading-work {
+    margin-bottom: 40px;
+    padding-left: 20px;
+}
+
+.heading-news { border-left: 4px solid #eda712; } /* お知らせ：オレンジ */
+.heading-work { border-left: 4px solid #656af7; } /* 作品：青 */
+
+
+.heading-work {
+    margin-top: 50px;
+}
+
+
+.heading_ja, .content-text, .logo {
+    font-family: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", "Hiragino Maru Gothic Pro", sans-serif;
+    letter-spacing: 0.1em;
+    margin-bottom: 30px;
+}
+
+
+.global-nav{
+    font-family: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", "Hiragino Maru Gothic Pro", sans-serif;
+}
+
+.heading_ja {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin: 0;
+    display: block;
+}
+
+.heading_en {
+    font-size: 1.1rem;
+    color: #6a6a6a;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    margin: 0;
+}
+
+/* 背景グレー用 */
+.bg-gray {
+    background-color: #f8f8f8;
+    padding: 80px 0;
+}
+
+/* ==========================================================================
+   Header (Fixed Navigation)
+   ========================================================================== */
+.page-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+    z-index: 9999;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+    
+
+    max-width: 1200px; 
+    margin: 0 auto;  
+    padding: 0 50px; 
+    width: 100%;
+}
+
+/* ロゴ全体の書き換え */
+.logo {
+    font-family: "Zen Maru Gothic", sans-serif !important;
+    font-weight: 800; /* 一番太くして「ぷっくり」させる */
+    font-size: 1.6rem;
+    letter-spacing: -0.02em; /* 文字間を少し詰めると可愛くなります */
+    color: #eda712;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* ロゴの横にある小さな英語 */
+.logo-sub {
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: #999;
+    margin-left: 5px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+
+.logo-dot {
+    color: #eda712; /* ここの色を好きな色に */
+    font-size: 0.6rem;
+}
+
+
+body {
+    font-weight: 500; /* 標準より少しだけ太くすると丸ゴシックは可愛くなります */
+}
+
+/* ナビ全体の配置 */
+.global-nav ul {
+    display: flex;
+    gap: 30px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+.global-nav a {
+    text-decoration: none;
+    color: #333;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+/* 親要素のli */
+.has-child {
+    position: relative; 
+    height: 80px;
+    display: flex; 
+    align-items: center; 
+}
+
+/* 下に出てくるメニューの基本設定（最初は隠す） */
+.dropdown-menu {
+    display: block !important; 
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ffffff;
+    width: 180px; 
+    padding: 0; 
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    border-radius: 0 0 10px 10px;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+/* 各メニュー項目を「行」として扱う */
+.dropdown-menu li {
+    display: block !important; /* 横並び（flex）を完全に打ち消す */
+    width: 100%;
+    margin: 0;
+}
+
+.dropdown-menu a {
+    display: block; /* 1行まるごとクリック可能にする */
+    padding: 15px 10px;
+    font-size: 0.9rem;
+    color: #555;
+    text-align: center;
+    text-decoration: none;
+    border-bottom: 1px dashed #eee; /* 行の区切り線 */
+    transition: 0.2s;
+}
+
+/* 最後の行の線は消す */
+.dropdown-menu li:last-child a {
+    border-bottom: none;
+}
+
+/* ホバー演出 */
+.dropdown-menu a:hover {
+    background: rgba(237, 167, 18, 0.08);
+    color: #eda712;
+}
+
+/* 親要素（Works）にマウスを乗せた時の動き */
+.has-child:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    top: 100%; /* ヘッダーの高さに合わせる */
+}
+
+.global-nav a:hover {
+    color: #eda712;
+}
+
+
+
+/* ==========================================================================
+   Hero Area
+   ========================================================================== */
+.hero {
+    height: calc(100vh - 80px);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)) , url(images/hero_01.webp);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+}
+
+.hero-title {
+    font-family: 'Noto Sans JP', sans-serif; /* フォントを統合して綺麗に */
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1.4;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+/* ==========================================================================
+   Work / Course Grid
+   ========================================================================== */
+.course-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+   .course-card {
+    height: 400px;
+    display: flex;
+    align-items: flex-end;
+    padding: 30px;
+    text-decoration: none;
+    color: #fff;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    overflow: hidden;
+    position: relative;
+    background-size: cover;      /* 画像を枠いっぱいに広げる */
+    background-position: center; /* 画像の中央を表示 */
+}
+
+/* 2Dコースの画像設定 */
+.card-2d {
+    background-image: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.6)), url('images/2d-graphic_06.webp');
+}
+
+/* アニメコースの画像設定 */
+.card-anime {
+    background-image: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.6)), url('images/anime-haikei_01.webp');
+}
+
+/* ホバー（マウスを乗せた時）の動き */
+.course-card:hover {
+    transform: translateY(-5px); /* 少し上に浮き上がる */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.card-info h4 {
+    font-size: 1.8rem;
+    margin: 0;
+    position: relative;
+    z-index: 2;
+}
+
+
+
+/* ==========================================================================
+   お知らせ　詳細
+   ========================================================================== */
+   .news-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 40px;
+}
+
+.news_item {
+    border-bottom: 1px dashed #ddd; /* 破線で柔らかく */
+    transition: 0.3s;
+}
+
+.news_item a {
+    display: flex;
+    align-items: center;
+    padding: 20px 10px;
+    text-decoration: none;
+    color: #333;
+    gap: 20px;
+}
+
+.category span {
+    display: inline-block;
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    color: #fff;
+    min-width: 100px;
+    text-align: center;
+}
+
+
+
+.cat-work { background: #eda712; }
+.cat-event { background: #e54d42; }
+.cat-info { background: #4a90e2; }
+.cat-blog { background: #2ecc71; }
+
+
+
+
+.time {
+    font-size: 0.9rem;
+    color: #999;
+    font-family: 'Playfair Display', serif;
+}
+
+.title {
+    flex: 1;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+/* ホバー時に少し右に動く */
+.news_item:hover {
+    background-color: rgba(237, 167, 18, 0.05);
+    padding-left: 10px;
+}
+/* ==========================================================================
+   News Detail Page (お知らせ詳細)
+   ========================================================================== */
+
+.news-detail-main {
+    padding-top: 60px;
+    padding-bottom: 120px;
+}
+
+.news-article {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.article-header {
+    margin-bottom: 40px;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 30px;
+}
+
+.article-title {
+    font-size: 1.8rem;
+    font-weight: 600; /* ★ ここを「600」に調整！ */
+    line-height: 1.4;
+    color: #333;
+    letter-spacing: 0.02em;
+}
+
+.article-content h3 {
+    font-size: 1.6rem;
+    font-weight: 600; /* ★ 中見出しも合わせて600に */
+    margin: 50px 0 20px;
+    padding-left: 15px;
+    border-left: 5px solid #eda712; 
+}
+
+/* その他のスタイルは維持 */
+
+.article-content {
+    line-height: 2;
+    font-size: 1.1rem;
+    color: #444;
+}
+
+.article-footer {
+    margin-top: 80px;
+    text-align: center;
+}
+
+.article-footer .btn-back {
+    display: inline-block;
+    padding: 12px 40px 12px 50px;
+    background: #333; 
+    color: #fff;
+    text-decoration: none;
+    border-radius: 50px; 
+    transition: 0.3s;
+    position: relative;
+    font-weight: 600; /* ★ ボタンの文字も600に統一 */
+    cursor: pointer;
+}
+
+.article-footer .btn-back::before {
+    content: "←";
+    position: absolute;
+    left: 20px;
+}
+
+.article-footer .btn-back:hover {
+    background: #eda712; 
+    transform: translateX(-5px);
+}
+
+/* ページネーション（数字のナビ） */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 60px;
+}
+
+.pagination span, .pagination a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid #eee;
+    text-decoration: none;
+    color: #333;
+    font-family: 'Playfair Display', serif;
+    transition: 0.3s;
+}
+
+.pagination .current, .pagination a:hover {
+    background-color: #eda712; /* ニュースの色 */
+    color: #fff;
+    border-color: #eda712;
+}
+
+.back-to-top {
+    text-align: center;
+    margin-top: 80px;
+}
+
+.heading-news{
+    margin-top: 50px;
+}
+
+/* ==========================================================================
+   作品一覧 カラム（トップページ：レンガ状レイアウト）
+   ========================================================================== */
+
+/* 1・3行目（左に突き出す行） */
+.c-grid-category {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* スマホは4列 */
+    gap: 10px; /* スマホは隙間を狭く */
+    margin: 0 -10px 0 -10px;
+}
+
+
+/* 2・4行目（右に突き出す行） */
+.c-grid__category {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* スマホは4列 */
+    gap: 10px;
+    margin: 0  10px 0  10px;
+}
+
+/* PC用設定（ここで上下の余白を改めて確定させる） */
+@media (min-width: 768px) {
+    .c-grid-category {
+        grid-template-columns: repeat(10, 1fr);
+        gap: 1rem;
+        margin: 0 -25px 50px -25px; 
+    }
+    
+    .c-grid__category {
+        grid-template-columns: repeat(10, 1fr);
+        gap: 1rem;
+        margin: 0 25px 50px 25px; 
+    }
+}
+
+/* 画像の設定 */
+.c-grid-category-item img {
+    width: 100%;
+    height: auto; 
+    aspect-ratio: 1/1; 
+    object-fit: cover; 
+    transition: transform 0.3s ease;
+    background-color: #eee; /* 画像が来るまで薄いグレーを表示 */
+}
+.c-grid-category-item img:hover {
+    transform: scale(1.8);
+    z-index: 10;
+    position: relative;
+}
+
+/* ==========================================================================
+   モアボタン
+   ========================================================================== */
+.more-container {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.btn-more-circle {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: #eda712;
+    font-weight: bold;
+    font-size: 14px;
+    letter-spacing: 0.1em;
+    transition: 0.3s;
+}
+
+.btn-more-circle span {
+    display: block;
+    margin-top: 10px;
+    padding: 10px 30px;
+    border: 2px solid #eda712;
+    border-radius: 50px;
+    background: #fff;
+    transition: 0.3s;
+}
+
+.btn-more-circle:hover span {
+    background: #eda712;
+    color: #fff;
+    transform: translateY(-5px);
+}
+
+/* ==========================================================================
+   コースページ専用：作品カラムレイアウト
+   ========================================================================== */
+.c-course-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr); 
+    gap: 20px 15px; /* [上下] [左右] の隙間をここで直接指定 */
+    margin: 40px 0 100px 0;
+}
+
+.c-course-grid-item {
+    text-align: center;
+}
+
+.c-course-grid-item img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #eee;
+}
+
+.c-course-grid-item a:hover img {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.c-course-grid a{
+    text-decoration: none !important;
+    color: #333;
+}
+
+/* スマホ・タブレット（768px以下） */
+@media (max-width: 768px) {
+    .c-course-grid {
+        grid-template-columns: repeat(3, 1fr); /* 2列にする */
+        gap: 20px 15px; /* 隙間を少し狭くする */
+    }
+
+    .c-course-grid-item p {
+        font-size: 0.75rem; /* 文字を少し小さく */
+        /* 2文字で改行されないよう、最低限の横幅を確保しつつ調整 */
+        padding: 0 5px;
+    }
+    
+    .archive-header {
+        padding: 100px 0 20px; /* ヘッダーとの距離 */
+    }
+    
+    .page-title {
+        font-size: 1.8rem !important;
+    }
+}
+
+/* 小さなスマホ（480px以下） */
+@media (max-width: 480px) {
+    .c-course-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2列を維持（1列にしたい場合はここを 1fr に） */
+        gap: 15px 10px;
+    }
+
+    .content-text {
+        font-size: 1rem !important;
+        margin: 40px 0 20px 0 !important;
+    }
+}
+
+/* ==========================================================================
+   Main Footer
+   ========================================================================== */
+   .main-footer {
+    background-color: #fff;
+    border-top: 1px solid #eee;
+    padding: 80px 0 0;
+    margin-top: 100px;
+}
+
+.footer-inner {
+    display: grid;
+    grid-template-columns: 1.5fr 2fr 1fr; /* 左を少し広く */
+    gap: 40px;
+    padding-bottom: 60px;
+}
+
+.footer-info .logo {
+    margin-bottom: 15px;
+}
+
+.school-name {
+    font-size: 0.85rem;
+    color: #888;
+    line-height: 1.6;
+}
+
+/* フッター見出し */
+.footer-head {
+    font-weight: 900;
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+    color: #333;
+    position: relative;
+    display: inline-block;
+}
+
+.footer-head::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 20px;
+    height: 3px;
+    background: #eda712; /* オレンジのアクセント線 */
+}
+
+/* リンク集 */
+.footer-links {
+    display: flex;
+    gap: 60px;
+}
+
+.main-footer ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.main-footer ul li {
+    margin-bottom: 12px;
+}
+
+.main-footer ul li a {
+    text-decoration: none;
+    color: #666;
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+
+.main-footer ul li a:hover {
+    color: #eda712;
+    padding-left: 5px;
+}
+
+/* コピーライトエリア */
+.footer-bottom {
+    background: #f9f9f9;
+    padding: 25px 0;
+    text-align: center;
+    border-top: 1px solid #eee;
+}
+
+.copy {
+    font-size: 0.75rem;
+    color: #bbb;
+    margin: 0;
+}
+
+/* スマホ用レスポンシブ */
+@media (max-width: 768px) {
+    .footer-inner {
+        grid-template-columns: 1fr; /* 1列にする */
+        gap: 50px;
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+
+    .footer-links {
+        flex-direction: column; /* リンク集を縦に */
+        gap: 40px;
+    }
+}
+
+/* ==========================================================================
+   Responsive (Smartphone)
+   ========================================================================== */
+@media (max-width: 768px) {
+    .container, .header-inner { padding: 0 80px; }
+    
+    .course-grid { grid-template-columns: 1fr; }
+    
+    .news_item a {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px 0;
+    }
+    
+    .category, .time {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+    
+    .title { margin-top: 10px; }
+
+    .hero-title { font-size: 2rem; }
+}
+
+
+
+/* ==========================================================================
+   作品詳細ページ (2カラムレイアウト)
+   ========================================================================== */
+
+.detail-visual {
+    width: 100%; /* 親要素の幅いっぱい */
+}
+
+.detail-visual img {
+    width: 100%;       /* 横幅をエリアに合わせる */
+    height: auto;      /* 高さは作品の比率に応じて自動調整（切り抜かない！） */
+    display: block;
+    border: 8px solid #fff; 
+    border-radius: 4px; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    margin-bottom: 30px; /* 複数枚並べた時の間隔 */
+}
+
+.detail-grid {
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 左を少し広く、右を少し狭く */
+    gap: 60px;
+    align-items: flex-start;
+}
+
+/* 右側：情報テーブル */
+.detail-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #333;
+    padding-bottom: 15px;
+}
+
+.detail-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 40px;
+}
+
+.detail-table th {
+    width: 30%;
+    text-align: left;
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 0.9rem;
+    color: #888;
+}
+
+.detail-table td {
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+    font-weight: 500;
+}
+
+/* 作品解説 */
+.description-label {
+    display: block;
+    font-weight: bold;
+    color: #656af7;
+    margin-bottom: 10px;
+    letter-spacing: 0.1em;
+}
+
+.detail-description {
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 60px; /* 戻るボタンとの距離を広げる */
+    flex-grow: 1;        /* 解説が短くてもボタンを下に押し出す */
+}
+
+/* 戻るボタン */
+.btn-back {
+    display: inline-block;
+    padding: 12px 40px;
+    margin-bottom: 30px;
+    background: #333; /* または水玉背景に合わせたパステルカラー */
+    color: #fff;
+    text-decoration: none;
+    border-radius: 50px; /* 角を丸くして可愛く */
+    transition: 0.3s;
+    position: relative;
+    padding-left: 50px; /* 矢印のスペース */
+}
+
+/* ボタンの中に小さな矢印をつける */
+.btn-back::before {
+    content: "←";
+    position: absolute;
+    left: 20px;
+    transition: 0.3s;
+}
+
+.btn-back:hover {
+    background: #eda712;
+    transform: translateX(-5px); /* ホバー時に少し左に動く演出 */
+}
+/* スマホ・タブレット（横幅が768px以下のとき）の設定 */
+@media (max-width: 768px) {
+    /* 左右2分割をやめて、1列にする */
+    .detail-grid {
+        display: flex;
+        flex-direction: column; /* 縦並びに変更 */
+        gap : 30px;
+    }
+
+    /* 画像エリアの順番を調整したい場合などはここ */
+    .detail-visual {
+        order: 1;
+    }
+
+    .detail-info {
+        order: 2;
+        min-height: auto; /* スマホでは高さを固定しない */
+    }
+
+    /* 画像のサイズ調整 */
+    .detail-visual img {
+        border-width: 4px; /* 白枠を少し細くして画面を広く使う */
+    }
+
+    /* 文字サイズをスマホ向けに少し小さく */
+    .detail-title {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+    }
+
+    .detail-table th, .detail-table td {
+        padding: 10px 0;
+        font-size: 0.85rem;
+    }
+}
+
+
+
+/* ==========================================================================
+   谷山ページ 
+   ========================================================================== */
+/* ヒーローエリア：画像なしでインパクトを出す */
+.taniyama-hero {
+    background: linear-gradient(135deg, #656af7 0%, #a066ff 100%);
+    padding: 160px 0 100px;
+    color: #fff;
+    text-align: left;
+}
+
+.project-tag {
+    font-size: 14px;
+    letter-spacing: 0.2em;
+    font-weight: bold;
+    opacity: 0.8;
+}
+
+.project-title {
+    font-size: clamp(3rem, 10vw, 6rem); /* 画面サイズで可変する大きな文字 */
+    line-height: 1;
+    margin: 20px 0;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+/* 概要エリア */
+.summary-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 60px;
+    padding: 100px 0;
+}
+
+.main-desc h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.main-desc h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background: #656af7;
+}
+
+.detail-box {
+    margin-bottom: 30px;
+}
+
+.detail-label {
+    display: block;
+    font-size: 12px;
+    color: #999;
+    font-weight: bold;
+}
+
+.detail-value {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* ダークセクション（プロセス） */
+.bg-dark {
+    background: #111;
+    color: #fff;
+    padding: 100px 0;
+}
+
+.section-title-en {
+    font-size: 80px;
+    font-weight: 900;
+    opacity: 0.1; /* 背景に溶け込む巨大文字 */
+    position: absolute;
+}
+
+.timeline {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 60px;
+    position: relative;
+}
+
+.time-card {
+    background: #222;
+    padding: 40px;
+    border-radius: 4px;
+    transition: 0.3s;
+}
+
+.time-card:hover {
+    background: #333;
+    transform: translateY(-10px);
+}
+
+.time-card .num {
+    font-size: 40px;
+    font-weight: 900;
+    color: #656af7;
+    display: block;
+    margin-bottom: 20px;
+}
+
+
+
+/* ==========================================================================
+   Archive & Project Common (谷山・グループワーク共通)
+   ========================================================================== */
+
+/* ページ上部の見出しエリア */
+.archive-header {
+    padding-top: 120px;
+    padding-bottom: 20px;
+    margin-bottom: 40px;
+    border-bottom: 1px solid #eee;
+}
+
+.page-title {
+    font-size: 32px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    margin: 0;
+}
+
+.page-sub {
+    font-size: 14px;
+    color: #888;
+    margin-top: 5px;
+}
+
+/* 年代セクションの区切り（トップの見出しスタイルを継承） */
+.year-section {
+    margin-top: 60px;
+}
+
+/* スクロール時のふわっとした動き */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* レスポンシブ調整（スマホで横並びを解除） */
+@media (max-width: 768px) {
+    .news_item a {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    .category {
+        margin-bottom: 0;
+    }
+}
+
+
+
+
+
+/* --- グループワーク（赤）の共通設定 --- */
+.heading-group {
+    border-left: 4px solid #e54d42; /* 赤色 */
+    padding-left: 20px;
+    margin-top: 50px;
+    margin-bottom: 40px;
+}
+
+/* 年代の見出し（作品紹介と同じスタイルで赤色に） */
+.heading-group-year {
+    border-left: 4px solid #e54d42;
+    padding-left: 20px;
+    margin: 60px 0 20px 0;
+}
+
+/* リストの調整（時間やカテゴリーがない分、スッキリさせる） */
+.news_item.item-red a {
+    padding: 25px 15px;
+}
+
+/* ホバーした時に赤色系の背景と動きをつける */
+.news_item.item-red:hover {
+    background-color: rgba(229, 77, 66, 0.05); /* ほんのり赤 */
+    padding-left: 10px;
+}
+
